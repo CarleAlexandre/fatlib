@@ -2,6 +2,9 @@
 
 see the bottom of the file for the copyright
 
+### list of finished features:
+
+- none(started yesterday)
 ___
 
 ## question
