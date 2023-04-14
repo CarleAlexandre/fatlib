@@ -1,3 +1,21 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  data_struct.c
+ *
+ *    Description:  
+ *
+ *        Version:  1.0
+ *        Created:  04/14/23 05:38:41
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  fatmeat (), pathofyggdrasil@gmail.com
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+
 #include "data_struct.h"
 #include <stdlib.h>
 

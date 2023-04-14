@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  flalloc.h
+ *       Filename:  flalloc.c
  *
  *    Description:  
  *
@@ -18,22 +18,31 @@
 
 #include "data_struct.h"
 #include <sys/mman.h>
+#include <signal.h>
+
 /*
 this only work under linux, but should help me understand memory maping for a start
-
+for now i'll keep using malloc on other part of the libs
+ * */
 void	*flMemAlloc(uint size) {
 	void	*ptr = 0x00;
 
 	if (size == 0)
 		return (ptr);
-	ptr = mmap(0x00, size, PROT_NONE, MAP_PRIVATE, int fd, __off_t offset);
-	mlock(const void *addr, size_t len);
+	ptr = mmap(0x00, size, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (!ptr) {
+		return (0x00);
+	}
+	if (0 != mlock(ptr, size)) {
+		munmap(ptr, size);
+		return (0x00);
+	}
 	return (ptr);
 }
 
+//i need to understand how can i get back the size of a mapped and locked memory segment
 void	flMemFree(void *ptr) {
-	munlock(const void *addr, size_t len);
-	munmap(void *addr, size_t len);
+	if (0 != munlock(ptr, 0) || 0 != munmap(ptr, 0))
+		raise (SIGSEGV);
 }
 
-*/
