@@ -1,5 +1,7 @@
 # Fatlib, my own multi platforme library
 
+see the bottom of the file for the copyright
+
 ___
 
 ## question
@@ -34,6 +36,13 @@ ___
 - data transformation and logic
 - optimized math function and algorithm
   (Ex fast inverse square root or msd radix sort)
+- networking, database and web capability (back-end and use of wasm)
+- lexer, parser, tokenizer stats machine
+
 ___
 
-This project is under The GPL v3 public License see License file
+# Copyleft
+
+  This project is under The GPL v3 public License see License file.
+
+___
