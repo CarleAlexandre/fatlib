@@ -32,7 +32,7 @@ typedef struct s_Lnode	Lnode;
 typedef struct s_Vec4	Vec4;
 typedef struct s_Vec4	Quaternion;
 typedef struct s_Vec4	Rgbacolor;
-
+typedef struct s_Vertex	Vertex;
 typedef unsigned int uint;
 
 struct s_Tnode {
@@ -64,6 +64,11 @@ struct	s_Lnode {
 
 struct	s_Vec4 {
 	float	x, y, z, w;
+};
+
+struct	s_Vertex {
+	float	x, y, z;
+	float	r, g, b, a;
 };
 
 #endif

@@ -1,0 +1,92 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/camera.o",
+      "src/camera.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/camera.c",
+    "output": "/home/emilia/Workspace/fatlib/src/camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/data_struct.o",
+      "src/data_struct.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/data_struct.c",
+    "output": "/home/emilia/Workspace/fatlib/src/data_struct.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/flalloc.o",
+      "src/flalloc.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/flalloc.c",
+    "output": "/home/emilia/Workspace/fatlib/src/flalloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/flio.o",
+      "src/flio.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/flio.c",
+    "output": "/home/emilia/Workspace/fatlib/src/flio.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/flmath.o",
+      "src/flmath.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/flmath.c",
+    "output": "/home/emilia/Workspace/fatlib/src/flmath.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/vertex.o",
+      "src/vertex.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/vertex.c",
+    "output": "/home/emilia/Workspace/fatlib/src/vertex.o"
+  }
+]
