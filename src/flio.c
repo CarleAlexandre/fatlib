@@ -30,7 +30,8 @@ char	*flreadline(const char *prompt, uint len) {
 	int		i = 0;
 
 	if (len){
-		write(1, prompt, len);
+		if (len != write(1, prompt, len))
+			return (NULL);
 	}
 	while (read(0, &c, 1) && c && i < _MAX_LINE_SIZE_) {
 		if (c == 0xa)
