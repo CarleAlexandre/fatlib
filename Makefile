@@ -13,18 +13,28 @@ SRC			=	$(wildcard src/*.c)
 INCLUDE		=	-Iinclude
 
 $(NAME)		:	$(OBJ)
-		mkdir -p $(BUILD)
-		ar rcs $(BUILD)$(NAME) $(OBJ)
+		@echo ${NAME}
+		@mkdir -p $(BUILD)
+		@ar rcs $(BUILD)$(NAME) $(OBJ)
 
 $(OBJ)		:	%.o	:	%.c
-		$(CC) $(CFLAGS) ${INCLUDE} -c $< -o $@
+		@echo $@
+		@$(CC) $(CFLAGS) ${INCLUDE} -c $< -o $@
 
 all			:	$(NAME)
 
+test		:
+		@echo "test"
+
 clean		:
-		rm -rf $(OBJ)
+		@echo "clean : $$?"
+		@rm -rf $(OBJ)
 
 fclean		:	clean
-		rm -rf $(BUILD)
+		@rm -rf $(BUILD)
+		@echo "full clean : $$?"
 
 re		:	fclean all
+		@echo "make re $$?"
+
+.PHONY	:	re clean fclean test
