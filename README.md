@@ -4,7 +4,9 @@ see the bottom of the file for the copyright
 
 ### list of finished features:
 
-- none(started yesterday)
+- simple readline
+- some math function
+- some data struct
 ___
 
 ## question
@@ -19,6 +21,7 @@ a: because i want to learn how everything work on a computer
 
 ## note
 
+- The CI action isn't set up, need to start working on the workflow and unitest
 - i started working only on the linux part, i didn't make it compile under windows, as i need to change unistd.h and sys/*.h into windows.h an equivalent for each use (exemple with how process and forking work under windows, or write function)
 - everything should be in it's seperate part of the library
 - you can choose what part you wan't to use(almost like stb header)
