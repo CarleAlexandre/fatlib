@@ -4,7 +4,7 @@ BUILD	=	build/
 
 CC			=	gcc
 
-CFLAGS		=	-O3 -Werror
+CFLAGS		=	-O3
 
 OBJ			=	$(SRC:%.c=%.o)
 
