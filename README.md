@@ -1,5 +1,7 @@
 # Fatlib, my own multi platforme library
 
+### every bit of criticisme is welcome as i use this project to learn
+
 see the bottom of the file for the copyright
 
 ### list of finished features:
