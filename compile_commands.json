@@ -82,6 +82,21 @@
       "-Iinclude",
       "-c",
       "-o",
+      "src/networking.o",
+      "src/networking.c"
+    ],
+    "directory": "/home/emilia/Workspace/fatlib",
+    "file": "/home/emilia/Workspace/fatlib/src/networking.c",
+    "output": "/home/emilia/Workspace/fatlib/src/networking.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Werror",
+      "-Iinclude",
+      "-c",
+      "-o",
       "src/vertex.o",
       "src/vertex.c"
     ],
