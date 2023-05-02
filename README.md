@@ -4,11 +4,8 @@
 
 see the bottom of the file for the copyright
 
-### list of finished features:
+need to change, if i wan't to use this library for my kernel, shouldn't use any external library/ function.
 
-- simple readline
-- some math function
-- some data struct
 ___
 
 ## question

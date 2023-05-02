@@ -24,6 +24,23 @@
  * here vec 2 3 and 4 are linear Vector not data vector, for this use Datavector type
  */
 
+/*
+ * define FL_DATA_TYPE to use short type (like in rust)
+ * define FL_DATA_STUCT
+ * */
+
+typedef unsigned int uint32;
+typedef short i16;
+typedef unsigned short u16;
+typedef float f32;
+typedef int	i32;
+typedef unsigned int u32;
+typedef double f64;
+typedef long long i64;
+typedef unsigned long long u64;
+
+# ifdef FL_DATA_STUCT
+
 typedef struct s_Tnode	Tnode;
 typedef struct s_Vec2	Vec2;
 typedef struct s_Vec3	Vec3;
@@ -33,7 +50,6 @@ typedef struct s_Vec4	Vec4;
 typedef struct s_Vec4	Quaternion;
 typedef struct s_Vec4	Rgbacolor;
 typedef struct s_Vertex	Vertex;
-typedef unsigned int uint;
 
 struct s_Tnode {
 	void	*data;
@@ -71,4 +87,34 @@ struct	s_Vertex {
 	float	r, g, b, a;
 };
 
+#  ifdef FL_DATA_FUNCTION
+
+#include <stdlib.h>
+
+static Tnode
+*flCreateNode(void *data) {
+	Tnode	*node;
+
+	node = (Tnode *)malloc(sizeof(Tnode));
+	node->left = 0x00;
+	node->right = 0x00;
+	node->data = data;
+	return (node);
+}
+
+static Lnode
+*flCreateLNode(void) {
+	Lnode	*node;
+
+	node = (Lnode *)malloc(sizeof(Lnode));
+	
+	return (node);
+}
+
+#  endif
+# endif
+
+
+
 #endif
+

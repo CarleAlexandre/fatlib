@@ -20,6 +20,13 @@
 #include <sys/mman.h>
 #include <signal.h>
 
+
+/*
+ *	should look into brk and setrlimit,
+ *	need to allocate memory to process before i map it ... smh,
+ *	i really need to read more the manual sometime.
+ * */
+
 /*
 this only work under linux, but should help me understand memory maping for a start
 for now i'll keep using malloc on other part of the libs
