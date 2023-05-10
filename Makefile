@@ -4,13 +4,15 @@ BUILD	=	build/
 
 CC			=	gcc
 
-CFLAGS		=	-O3
+CFLAGS		=	-O3 -nostdlib -static
 
 OBJ			=	$(SRC:%.c=%.o)
 
 SRC			=	$(wildcard src/*.c)
 
 INCLUDE		=	-Iinclude
+
+all			:	$(NAME) #$(ASM)
 
 $(NAME)		:	$(OBJ)
 		@echo ${NAME}
@@ -21,7 +23,9 @@ $(OBJ)		:	%.o	:	%.c
 		@echo $@
 		@$(CC) $(CFLAGS) ${INCLUDE} -c $< -o $@
 
-all			:	$(NAME)
+$(ASM)		:	$(ASM_OBJ)
+		@$(CC) -c $< -o $@
+		@echo $@
 
 test		:
 		@echo "test"

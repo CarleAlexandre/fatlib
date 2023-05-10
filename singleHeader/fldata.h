@@ -20,14 +20,9 @@
 # define DATA_STRUCT_H
 
 /*
- * Basic Data Structur
+ * Data Struct
  * here vec 2 3 and 4 are linear Vector not data vector, for this use Datavector type
  */
-
-/*
- * define FL_DATA_TYPE to use short type (like in rust)
- * define FL_DATA_STUCT
- * */
 
 typedef unsigned int uint32;
 typedef short i16;
@@ -38,8 +33,7 @@ typedef unsigned int u32;
 typedef double f64;
 typedef long long i64;
 typedef unsigned long long u64;
-
-# ifdef FL_DATA_STUCT
+typedef void *ptr;
 
 typedef struct s_Tnode	Tnode;
 typedef struct s_Vec2	Vec2;
@@ -51,31 +45,12 @@ typedef struct s_Vec4	Quaternion;
 typedef struct s_Vec4	Rgbacolor;
 typedef struct s_Vertex	Vertex;
 
-struct s_Tnode {
-	void	*data;
-	Tnode	*left;
-	Tnode	*right;
-};
-
 struct	s_Vec2 {
 	float	x, y;
 };
 
 struct	s_Vec3 {
 	float	x, y, z;
-};
-
-/*a data vector is a linked list where every node are contiguous in memery, basically an simple array ...*/
-struct	s_Datavector {
-	void	*vector;
-	uint	typesize;
-	uint	size;
-};
-
-struct	s_Lnode {
-	void	*data;
-	Lnode	*next;
-	Lnode	*prev;
 };
 
 struct	s_Vec4 {
@@ -87,34 +62,106 @@ struct	s_Vertex {
 	float	r, g, b, a;
 };
 
-#  ifdef FL_DATA_FUNCTION
+struct s_Tnode {
+	ptr		data;
+	Tnode	*left;
+	Tnode	*right;
+};
 
-#include <stdlib.h>
-
+/*
+ * DESCRIPTION
+ *	create a new binary tree node from allocator and store data in it.
+ *
+ * RETURN
+ *  return either null if allocation failed or a pointer to the created node
+ * 
+ * NOTE
+ *  allocator if it failed need to send back null (like malloc, or else the return value is undifined in case of fail)
+ * */
 static Tnode
-*flCreateNode(void *data) {
+*flCreateTNode(ptr data, ptr(*allocator)(u32)) {
 	Tnode	*node;
 
-	node = (Tnode *)malloc(sizeof(Tnode));
+	node = (Tnode *)allocator(sizeof(Tnode));
+	if (node == 0x00)
+		return (0x00);
 	node->left = 0x00;
 	node->right = 0x00;
 	node->data = data;
 	return (node);
 }
 
+struct	s_Lnode {
+	void	*data;
+	Lnode	*next;
+	Lnode	*prev;
+};
+
+/*
+ * DESCRIPTION
+ *	create a new linked list node from allocator and store data in it.
+ *
+ * RETURN
+ *  return either null if allocation failed or a pointer to the created node
+ * 
+ * NOTE
+ *  allocator if it failed need to send back null (like malloc, or else the return value is undifined in case of fail)
+ * */
 static Lnode
-*flCreateLNode(void) {
+*flCreateLNode(ptr data, ptr(*allocator)(u32)) {
 	Lnode	*node;
 
-	node = (Lnode *)malloc(sizeof(Lnode));
-	
+	node = (Lnode *)allocator(sizeof(Lnode));
+	if (node == 0x00)
+		return (0x00);
+	node->prev = 0x00;
+	node->next = 0x00;
+	node->data = data;
 	return (node);
 }
 
-#  endif
-# endif
+struct	s_Datavector {
+	ptr	pointer;
+	ptr	iterator;
+	ptr	(*allocator)(u32);
+	i32	(*add)(ptr);
+	i32	(*del)(u32);
+	u32	typesize;
+	u32	size;
+};
 
+/*
+ * DESCRIPTION
+ *	create a new Data vector from allocator, and create a memory array of (size * typesize),
+ *	assign a add and del function to allocator struct.
+ *
+ *	add function pointer should return an i32 (signed int) and take a ptr (void *) arguments.
+ *	del function pointer should return an i32 (signed int) and take a u32 (unsigned int) arguments.
+ *
+ * RETURN
+ *  return either null if allocation failed or a pointer to the created vector struct
+ * 
+ * NOTE
+ *  allocator if it failed need to send back null (like malloc, or else the return value is undifined in case of fail)
+ * */
+static	Datavector
+*new_vector(u32 typesize, u32 size, ptr(*allocator) (u32), i32(*del)(u32), i32(*add)(ptr)) {
+	Datavector *vecteur;
 
+	vecteur = (Datavector *)allocator(sizeof(Datavector));
+	if (vecteur == 0x00)
+		return (0x00);
+	vecteur->pointer = allocator(typesize * size);
+	if (vecteur->pointer == 0x00)
+		return (0x00);
+	vecteur->allocator = allocator;
+	vecteur->typesize = typesize;
+	vecteur->size = size;
+	vecteur->iterator = vecteur->pointer;
+	vecteur->add = add;
+	vecteur->del = del;
+	return (vecteur);
+}
 
 #endif
 

@@ -20,7 +20,10 @@
 # define FLMEM_H
 
 /*
- *	copy n bytes of memory from src to dest and return dest pointer
+ *	DESCRIPTION
+ *		the function copy n bytes of memory from src to dest 
+ *	RETURN VALUE
+ *		return dest pointer
  * */
 static void
 *flMemCpy(void *restrict dest, const void *restrict src, unsigned int n) {
@@ -31,7 +34,11 @@ static void
 }
 
 /*
- *	copy n bytes of memory from src to dest and return dest + n pointer
+ *	DESCRIPTION
+ *		the function copy n bytes of memory from src to dest.
+ *	RETURN VALUE
+ *		returns a pointer to the memory area (dest + n).
+ *
  * */
 static void
 *flMemPCpy(void *restrict dest, const void *restrict src, unsigned int n) {
@@ -41,20 +48,73 @@ static void
 	return (dest + n);
 }
 
-#  include <stdlib.h>
-
 /*
- *	allocate a new memory chunk of n bytes and copy n byte of mem to new chunk
- *	then return the new memory chunk
- *	need stdlib.h for malloc function
- *
- *	if you want to use this function you need to define FL_USE_STDLIB_DEP before the include
+ *	DESCRIPTION
+       The  function fills the first n bytes of the memory area pointed to by mem with
+       the constant byte b.
+
+	RETURN VALUE
+       The function returns a pointer to the memory area s.
  * */
 static void
-*flMemDup(const void *mem, unsigned int n) {
+*flMemSet(void *restrict mem, int b, unsigned int n) {
+	for (int i = 0; i < n; i++) {
+		*(char *)(mem + i) = b;
+	}
+	return (mem);
+}
+
+#ifdef _WIN32
+
+static void
+flabort(void) {
+	exit();
+};
+
+#endif
+
+#ifdef __unix
+
+static void
+flabort(void) {
+	__asm__(
+	"movl $39, %eax\n"
+	"syscall\n"
+	"movq %rax, %rdi\n"
+	"movl $62, %eax\n"
+	"movq $6, %rsi\n"
+	"syscall\n"
+	);
+}
+
+static void
+flexit(unsigned int code) {
+	asm volatile(
+	"movl %0, %%edi\n"
+	"movl $60, %%eax\n"
+	"syscall\n"
+	::"a"(code)
+	);
+}
+
+#endif
+
+/*
+ *	DESCRIPTION
+ *		allocate a new memory chunk of n bytes and copy n byte of mem to new chunk
+ *	RETURN VALUE
+ *		return the new memory chunk
+ *
+ *	note
+ *		need stdlib.h for malloc function
+ *
+ *		if you want to use this function you need to define FL_USE_STDLIB_DEP before the include
+ * */
+static void
+*flMemDup(const void *mem, unsigned int n, void*(*allocator)(unsigned int)) {
 	void	*dup;
 
-	dup = malloc(n);
+	dup = allocator(n);
 	while (n--) {
 		*(char*)(dup + n) = *(char *)(mem + n);
 	}
@@ -94,7 +154,7 @@ gStrLen(const char *str) {
 		lomagic = ((lomagic << 16) << 16) | lomagic;
 	}
 	if (sizeof (longword) > 8)
-		abort ();
+		flabort ();
 	/* Instead of the traditional loop which tests each character,
 		we will test a longword at a time.  The tricky part is testing
 		if *any of the four* bytes in the longword in question are zero.  */
@@ -125,6 +185,5 @@ gStrLen(const char *str) {
 		}
     }
 }
-
 # endif
 
