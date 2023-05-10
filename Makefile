@@ -1,6 +1,6 @@
 NAME		=	fatlib.a
 
-BUILD	=	build/
+BUILD		=	build/
 
 CC			=	gcc
 
@@ -8,37 +8,39 @@ CFLAGS		=	-O3 -nostdlib -static
 
 OBJ			=	$(SRC:%.c=%.o)
 
+ASM_OBJ		=	$(ASM_SRC:%.asm=%.o)
+
 SRC			=	$(wildcard src/*.c)
 
-INCLUDE		=	-Iinclude
+ASM_SRC		=	$(wildcard asm/*.asm)
 
-all			:	$(NAME) #$(ASM)
+INCLUDE		=	-Iinclude -I singleHeader
+
+all			:	$(NAME) $(ASM_OBJ)
 
 $(NAME)		:	$(OBJ)
-		@echo ${NAME}
 		@mkdir -p $(BUILD)
 		@ar rcs $(BUILD)$(NAME) $(OBJ)
+		@echo ${NAME}
 
 $(OBJ)		:	%.o	:	%.c
-		@echo $@
 		@$(CC) $(CFLAGS) ${INCLUDE} -c $< -o $@
-
-$(ASM)		:	$(ASM_OBJ)
-		@$(CC) -c $< -o $@
 		@echo $@
 
-test		:
-		@echo "test"
+$(ASM_OBJ)		:	%.o	:	%.asm
+		@nasm $< -o $@
+		@echo $@
 
 clean		:
-		@echo "clean : $$?"
 		@rm -rf $(OBJ)
+		@rm -rf $(ASM_OBJ)
+		@echo "clean : $$?"
 
 fclean		:	clean
 		@rm -rf $(BUILD)
 		@echo "full clean : $$?"
 
 re		:	fclean all
-		@echo "make re $$?"
+		@echo "make re ..."
 
 .PHONY	:	re clean fclean test

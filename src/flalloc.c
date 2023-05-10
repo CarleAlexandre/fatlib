@@ -16,7 +16,6 @@
  * =====================================================================================
  */
 
-#include "data_struct.h"
 #include <sys/mman.h>
 #include <signal.h>
 
@@ -31,7 +30,7 @@
 this only work under linux, but should help me understand memory maping for a start
 for now i'll keep using malloc on other part of the libs
  * */
-void	*flMemAlloc(uint size) {
+void	*flMemAlloc(unsigned int size) {
 	void	*ptr = 0x00;
 
 	if (size == 0)

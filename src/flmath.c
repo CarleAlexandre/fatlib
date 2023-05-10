@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 
-#include <data_struct.h>
+#include <fldata.h>
 
 float fastReverseSqrt(float num) {
 	long i;
