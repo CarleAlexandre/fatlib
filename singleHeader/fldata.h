@@ -35,6 +35,8 @@ typedef long long i64;
 typedef unsigned long long u64;
 typedef void *ptr;
 
+#ifdef FL_DATA_STRUCT
+
 typedef struct s_Tnode	Tnode;
 typedef struct s_Vec2	Vec2;
 typedef struct s_Vec3	Vec3;
@@ -162,6 +164,8 @@ static	Datavector
 	vecteur->del = del;
 	return (vecteur);
 }
+
+#endif
 
 #endif
 

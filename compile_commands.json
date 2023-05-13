@@ -1,1 +1,114 @@
-[]
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flalloc.o",
+      "src/flalloc.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flalloc.c",
+    "output": "/home/emilia/workspace/fatlib/src/flalloc.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flcamera.o",
+      "src/flcamera.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flcamera.c",
+    "output": "/home/emilia/workspace/fatlib/src/flcamera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flio.o",
+      "src/flio.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flio.c",
+    "output": "/home/emilia/workspace/fatlib/src/flio.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flmath.o",
+      "src/flmath.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flmath.c",
+    "output": "/home/emilia/workspace/fatlib/src/flmath.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flnet.o",
+      "src/flnet.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flnet.c",
+    "output": "/home/emilia/workspace/fatlib/src/flnet.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flsort.o",
+      "src/flsort.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flsort.c",
+    "output": "/home/emilia/workspace/fatlib/src/flsort.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-O3",
+      "-Iinclude",
+      "-I",
+      "singleHeader",
+      "-c",
+      "-o",
+      "src/flvert.o",
+      "src/flvert.c"
+    ],
+    "directory": "/home/emilia/workspace/fatlib",
+    "file": "/home/emilia/workspace/fatlib/src/flvert.c",
+    "output": "/home/emilia/workspace/fatlib/src/flvert.o"
+  }
+]

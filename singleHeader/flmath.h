@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  flmath.c
+ *       Filename:  flmath.h
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  04/14/23 06:48:10
+ *        Created:  05/12/2023 05:11:35 AM
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -16,10 +16,14 @@
  * =====================================================================================
  */
 
-# define FL_DATA_STRUCT
-#include <fldata.h>
+#ifndef Vec2
+ typedef struct Vec2{
+	float x, y;
+ } Vec2;
+#endif
 
-float fastReverseSqrt(float num) {
+static float
+fastReverseSqrt(float num) {
 	long i;
 	float x2, y;
 	const float threehalfs = 1.5f;
@@ -39,13 +43,15 @@ float fastReverseSqrt(float num) {
  *`tested on proc who support IEEE754 floating point
  * else you should remove the if and last return
  * */
-float	flLerp(float a, float b, float x) {
+static float
+flLerp(float a, float b, float x) {
 	if (x <= 0.5f)
 		return (x * (b - a) + a);
 	return (b - (1.0f - x) * (b - a));
 }
 
-double	flPow(double number, long power) {
+static double
+flPow(double number, long power) {
 	double result = 1;
 
 	while (power > 0) { 
@@ -61,7 +67,8 @@ double	flPow(double number, long power) {
 /*
  *smoothStep linear interpolation funcion
  * */
-float smoothStep(float t) {
+static float
+smoothStep(float t) {
     float v1 = t * t;
     float v2 = 1.0f - (1.0f - t) * (1.0f - t);
     return (flLerp(v1, v2, t));
@@ -70,14 +77,16 @@ float smoothStep(float t) {
 /*
 	find the distance between two Vector2
 */
-float flDistance(Vec2 a, Vec2 b) {
+static float
+flDistance(Vec2 a, Vec2 b) {
     return (flPow(b.x - a.x, 2) + flPow(b.y - a.y, 2));
 }
 
 /*
 	Travel a distance to your objectiv coordinate depending of the delta time of last frame and player velocity
 */
-Vec2 flTravelTo(Vec2 current, Vec2 target, float velocity, float delta_time) {
+static Vec2
+flTravelTo(Vec2 current, Vec2 target, float velocity, float delta_time) {
 	Vec2 direction = { target.x - current.x, target.y - current.y };
     float distance_to_target = flDistance(current, target);
     float move_distance = velocity * delta_time;

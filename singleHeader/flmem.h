@@ -64,41 +64,6 @@ static void
 	return (mem);
 }
 
-#ifdef _WIN32
-
-static void
-flabort(void) {
-	exit();
-};
-
-#endif
-
-#ifdef __unix
-
-static void
-flabort(void) {
-	__asm__(
-	"movl $39, %eax\n"
-	"syscall\n"
-	"movq %rax, %rdi\n"
-	"movl $62, %eax\n"
-	"movq $6, %rsi\n"
-	"syscall\n"
-	);
-}
-
-static void
-flexit(unsigned int code) {
-	asm volatile(
-	"movl %0, %%edi\n"
-	"movl $60, %%eax\n"
-	"syscall\n"
-	::"a"(code)
-	);
-}
-
-#endif
-
 /*
  *	DESCRIPTION
  *		allocate a new memory chunk of n bytes and copy n byte of mem to new chunk
@@ -111,7 +76,7 @@ flexit(unsigned int code) {
  *		if you want to use this function you need to define FL_USE_STDLIB_DEP before the include
  * */
 static void
-*flMemDup(const void *mem, unsigned int n, void*(*allocator)(unsigned int)) {
+*flMemDup(const void *mem, unsigned int n, void*(*allocator)(unsigned long)) {
 	void	*dup;
 
 	dup = allocator(n);
@@ -153,8 +118,20 @@ gStrLen(const char *str) {
 		himagic = ((himagic << 16) << 16) | himagic;
 		lomagic = ((lomagic << 16) << 16) | lomagic;
 	}
-	if (sizeof (longword) > 8)
-		flabort ();
+	if (sizeof (longword) > 8) {
+		#ifdef __unix__
+		__asm__(
+			"movl $39, %eax\n"
+			"syscall\n"
+			"movq %rax, %rdi\n"
+			"movl $62, %eax\n"
+			"movq $6, %rsi\n"
+			"syscall\n"
+		);
+		#elif __WIN32
+			return (0);
+		#endif
+	}
 	/* Instead of the traditional loop which tests each character,
 		we will test a longword at a time.  The tricky part is testing
 		if *any of the four* bytes in the longword in question are zero.  */
@@ -164,6 +141,17 @@ gStrLen(const char *str) {
 			/* Which of the bytes was the zero?  If none of them were, it was
 				a misfire; continue the search.  */
 			const char *cp = (const char *) (longword_ptr - 1);
+#ifdef FL_SIMD_USE
+			__asm__(
+			"_m"
+			:
+			:
+			:
+			);
+			comparaison(cp + n(int8 vector), 0(int8));
+
+			return (cp - str + i);
+#endif
 			if (cp[0] == 0)
 				return cp - str;
 			if (cp[1] == 0)
@@ -185,5 +173,6 @@ gStrLen(const char *str) {
 		}
     }
 }
+
 # endif
 
